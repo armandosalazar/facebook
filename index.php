@@ -54,6 +54,21 @@ if (isset($_POST["post"]) && !empty($_POST["post"])) {
 
     move_uploaded_file($tmp_img_name, $folder . $img_name);
 
-    echo "<h2>$post</h2>";
+    if (!isset($_SESSION["posts"]))
+        $_SESSION["posts"] = array();
+
+
+    array_push($_SESSION["posts"], array(
+        "image_url" => $folder . $img_name,
+        "post" => $post,
+    ));
+}
+
+$posts = $_SESSION["posts"];
+foreach ($posts as $post) {
+?>
+    <h3><?php echo $post["post"] ?></h3>
+    <img src="<?php echo $post["image_url"]?>" width="300">
+<?php
 }
 ?>
