@@ -7,7 +7,6 @@ var_dump($_SESSION);
 if (isset($_SESSION["session"])) {
     echo "<p>Successfully session!</p>";
 } else {
-    header_remove();
     header("Location: login.php");
 }
 ?>
@@ -83,6 +82,6 @@ foreach ($posts as $post) {
     if ($post["image_url"] == "uploads/")
         continue;
     else
-        echo "<img src='$post[image_url]' width='300' alt='image of post'>";
+        echo "<img src='$post[image_url]' width='500' alt='image of post'>";
 }
 ?>
