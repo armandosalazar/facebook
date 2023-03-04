@@ -15,17 +15,30 @@ if (isset($_SESSION["session"])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Facebook</title>
 </head>
 
 <body>
     <div>
+        <?php
+        $email = $_SESSION['session']['email'];
+        ?>
+        <h2>Welcome to Facebook <?php echo $email ?></h2>
+        <a href="me.php">Profile</a>
+        <a href="settings.php">Settings</a>
+        <a href="logout.php">Logout</a>
         <h2>New post</h2>
-        <form action="/" method="post">
-            <input type="file" name="image" accept="image/*">
+        <form action="" method="post" enctype="multipart/form-data">
+            <input type="file" name="image">
             <input type="text" name="post" require>
             <input type="submit">
         </form>
+    </div>
+    <div>
+        <h2>People</h2>
+    </div>
+    <div>
+        <h2>Chat</h2>
     </div>
     <button onclick="window.location='/login.php'">Login</button>
 </body>
@@ -35,12 +48,12 @@ if (isset($_SESSION["session"])) {
 <?php
 if (isset($_POST["post"]) && !empty($_POST["post"])) {
     $post = $_POST["post"];
-    var_dump($_POST);
-    var_dump($_FILES);
-    $target_dir="uploads/";
-    $target_file = $target_dir . basename($_FILES['image']);
-    if (getimagesize($_FILES["image"]["tmp_name"]))
-        echo "PPP";
+    $img_name = $_FILES["image"]["name"];
+    $tmp_img_name  = $_FILES["image"]["tmp_name"];
+    $folder = "uploads/";
+
+    move_uploaded_file($tmp_img_name, $folder . $img_name);
+
     echo "<h2>$post</h2>";
 }
 ?>
