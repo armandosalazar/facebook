@@ -1,10 +1,27 @@
-<!doctype html>
+<?php
+session_start();
+if (isset($_SESSION['session'])) {
+	header("Location: /");
+}
+?>
+<!DOCTYPE html>
 <html lang="es">
-<form method="post" action="login.php">
-	<input name="email" type="email" required />
-	<input name="password" type="password" required />
-	<input type="submit" />
-</form>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login</title>
+</head>
+
+<body>
+
+	<form method="post" action="login.php">
+		<input name="email" type="email" required />
+		<input name="password" type="password" required />
+		<input type="submit" />
+	</form>
+</body>
 
 </html>
 <?php
@@ -25,6 +42,8 @@ if (isset($_POST['email']) and isset($_POST['password'])) {
 			echo "$_SESSION[session]";
 			var_dump($_SESSION);
 			echo "<h2>Succesfully login!</h2>";
+			sleep(1);
+			header("Location: /");
 		}
 	}
 }
