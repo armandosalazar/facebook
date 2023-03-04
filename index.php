@@ -39,7 +39,7 @@ if (isset($_SESSION["session"])) {
         <form action="" method="post" enctype="multipart/form-data">
             <input type="file" name="image">
             <label>
-                <textarea name="post" cols="30" rows="10"></textarea>
+                <textarea name="post" cols="30" rows="5"></textarea>
             </label>
             <input type="submit">
         </form>
