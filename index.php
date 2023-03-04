@@ -2,8 +2,6 @@
 ob_start(); // Activa el almacenamiento en búfer de la salida, para que no se envíe nada al navegador hasta que se llame a la función ob_end_flush(), para la advertencia de headers enviados
 session_start(); // Si no uso esta función no puedo acceder a los valores
 
-var_dump(headers_sent());
-var_dump(headers_list());
 var_dump($_SESSION);
 
 if (isset($_SESSION["session"])) {
@@ -21,6 +19,11 @@ if (isset($_SESSION["session"])) {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Facebook</title>
+        <style>
+            body {
+                font-family: -apple-system, system-ui;
+            }
+        </style>
     </head>
 
     <body>
@@ -48,6 +51,7 @@ if (isset($_SESSION["session"])) {
         <h2>Chat</h2>
     </div>
     <button onclick="window.location='/login.php'">Login</button>
+    <button onclick="window.location='/clear-post.php'">Clear post</button>
     </body>
 
     </html>
@@ -65,19 +69,20 @@ if (isset($_POST["post"]) && !empty($_POST["post"])) {
         $_SESSION["posts"] = array();
 
 
-    array_push($_SESSION["posts"], array(
+    $_SESSION["posts"][] = array(
         "image_url" => $folder . $img_name,
         "post" => $post,
-    ));
+    );
 }
 if (!isset($_SESSION["posts"]))
     $_SESSION["posts"] = array();
 
 $posts = $_SESSION["posts"];
 foreach ($posts as $post) {
-    ?>
-    <h3><?php echo $post["post"] ?></h3>
-    <img src="<?php echo $post["image_url"] ?>" width="300">
-    <?php
+    echo "<h3>$post[post]</h3>";
+    if ($post["image_url"] == "uploads/")
+        continue;
+    else
+        echo "<img src='$post[image_url]' width='300' alt='image of post'>";
 }
 ?>
