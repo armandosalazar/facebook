@@ -45,6 +45,26 @@ if (isset($_SESSION["session"])) {
     </div>
     <div>
         <h2>People</h2>
+        <?php
+        $people = array(
+            array(
+                "name" => "John",
+                "email" => "john@email.com",
+            ),
+            array(
+                "name" => "Jane",
+                "email" => "jane@email.com"
+            ),
+            array(
+                "name" => "Jack",
+                "email" => "jack@email.com"
+            ),
+        );
+        foreach ($people as $person) {
+            echo "<h3>{$person['name']}</h3>";
+            echo "<p>{$person['email']}</p>";
+        }
+        ?>
     </div>
     <div>
         <h2>Chat</h2>
