@@ -10,70 +10,72 @@ if (isset($_SESSION["session"])) {
     header("Location: login.php");
 }
 ?>
-    <!DOCTYPE html>
-    <html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Facebook</title>
-        <style>
-            body {
-                font-family: -apple-system, system-ui;
-            }
-        </style>
-    </head>
-
-    <body>
-    <div>
-        <?php
-        $email = $_SESSION['session']['email'];
-        ?>
-        <h2>Welcome to Facebook <?php echo $email ?></h2>
-        <a href="me.php">Profile</a>
-        <a href="settings.php">Settings</a>
-        <a href="logout.php">Logout</a>
-        <h2>New post</h2>
-        <form action="" method="post" enctype="multipart/form-data">
-            <input type="file" name="image">
-            <label>
-                <textarea name="post" cols="30" rows="5"></textarea>
-            </label>
-            <input type="submit">
-        </form>
-    </div>
-    <div>
-        <h2>People</h2>
-        <?php
-        $people = array(
-            array(
-                "name" => "John",
-                "email" => "john@email.com",
-            ),
-            array(
-                "name" => "Jane",
-                "email" => "jane@email.com"
-            ),
-            array(
-                "name" => "Jack",
-                "email" => "jack@email.com"
-            ),
-        );
-        foreach ($people as $person) {
-            echo "<h3>{$person['name']}</h3>";
-            echo "<p>{$person['email']}</p>";
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook</title>
+    <style>
+        body {
+            font-family: -apple-system, system-ui;
         }
-        ?>
-    </div>
-    <div>
-        <h2>Chat</h2>
-    </div>
-    <button onclick="window.location='/login.php'">Login</button>
-    <button onclick="window.location='/clear-post.php'">Clear post</button>
-    </body>
+    </style>
+</head>
 
-    </html>
+<body>
+<div>
+    <?php
+    $email = $_SESSION['session']['email'];
+    ?>
+    <h2>Welcome to Facebook <?php echo $email ?></h2>
+    <a href="me.php">Profile</a>
+    <a href="settings.php">Settings</a>
+    <a href="logout.php">Logout</a>
+    <h2>New post</h2>
+    <form action="" method="post" enctype="multipart/form-data">
+        <input type="file" name="image">
+        <label>
+            <textarea name="post" cols="30" rows="5"></textarea>
+        </label>
+        <input type="submit">
+    </form>
+</div>
+<div>
+    <h2>People</h2>
+    <?php
+    $people = array(
+        array(
+            "name" => "John",
+            "email" => "john@email.com",
+        ),
+        array(
+            "name" => "Jane",
+            "email" => "jane@email.com"
+        ),
+        array(
+            "name" => "Jack",
+            "email" => "jack@email.com"
+        ),
+    );
+    foreach ($people as $person) {
+        echo "<h3>{$person['name']}</h3>";
+        echo "<p>{$person['email']}</p>";
+    }
+    ?>
+</div>
+<div class="chat">
+    <h2>Chat</h2>
+    <input type="text">
+    <input type="submit">
+</div>
+<button onclick="window.location='/login.php'">Login</button>
+<button onclick="window.location='/clear-post.php'">Clear post</button>
+</body>
+
+</html>
 
 <?php
 if (isset($_POST["post"]) && !empty($_POST["post"])) {
@@ -105,3 +107,20 @@ foreach ($posts as $post) {
         echo "<img src='$post[image_url]' width='500' alt='image of post'>";
 }
 ?>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    .chat {
+        width: 300px;
+        height: 300px;
+        border: 1px solid black;
+        overflow: auto;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+</style>
