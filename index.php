@@ -114,6 +114,7 @@ foreach ($posts as $post) {
         margin: 0;
         padding: 0;
     }
+
     .chat {
         width: 300px;
         height: 300px;
@@ -124,3 +125,30 @@ foreach ($posts as $post) {
         right: 0;
     }
 </style>
+
+<script !src="">
+    const ws = new WebSocket("ws://localhost:8080/daemon.php");
+    ws.onopen = function () {
+        console.log("Connected to server");
+    };
+    ws.onmessage = function (e) {
+        console.log(e.data);
+        const chat = document.querySelector(".chat");
+        const p = document.createElement("p");
+        p.innerHTML = e.data;
+        chat.appendChild(p);
+    };
+    ws.onclose = function () {
+        console.log("Disconnected from server");
+    };
+    ws.onerror = function (e) {
+        console.log(e);
+    };
+    document.querySelector("input[type='submit']").addEventListener("click", function (e) {
+        e.preventDefault();
+        const input = document.querySelector("input[type='text']");
+        const message = input.value;
+        ws.send(message);
+        input.value = "";
+    });
+</script>
